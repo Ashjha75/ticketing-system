@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -34,10 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-=======
->>>>>>> 2cec26ca7655ee21862e49dccd406eebd46ac05e
-=======
->>>>>>> 2cec26ca7655ee21862e49dccd406eebd46ac05e
 # Compiled class file
 *.class
 

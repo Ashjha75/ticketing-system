@@ -56,3 +56,15 @@ build/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Local runtime config (keep secrets out of git)
+src/main/resources/application.yml
+src/main/resources/application-*.yml
+.env
+.env.*
+
+# Local cache/temp artifacts
+.cache/
+tmp/
+temp/
+

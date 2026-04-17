@@ -1,57 +1,15 @@
 package com.ashish.ticketing.modules.notification.dto.response;
 
-import java.time.Instant;
-
 public class NotificationResponse {
 
-    private Long id;
-    private String recipient;
-    private String subject;
-    private String message;
     private String status;
-    private Instant sentAt;
+    private String message;
 
     public NotificationResponse() {
     }
 
-    public NotificationResponse(Long id, String recipient, String subject, String message, String status, Instant sentAt) {
-        this.id = id;
-        this.recipient = recipient;
-        this.subject = subject;
-        this.message = message;
+    public NotificationResponse(String status, String message) {
         this.status = status;
-        this.sentAt = sentAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -63,11 +21,11 @@ public class NotificationResponse {
         this.status = status;
     }
 
-    public Instant getSentAt() {
-        return sentAt;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSentAt(Instant sentAt) {
-        this.sentAt = sentAt;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

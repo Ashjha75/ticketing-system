@@ -8,6 +8,9 @@ import com.ashish.ticketing.modules.event.dto.response.EventResponse;
 import com.ashish.ticketing.modules.event.entity.Event;
 import com.ashish.ticketing.modules.event.mapper.EventMapper;
 import com.ashish.ticketing.modules.event.service.EventService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/events")
+@Tag(name = "Events", description = "User event browsing APIs")
+@SecurityRequirement(name = "bearerAuth")
 public class EventController {
 
 	private final EventService eventService;
@@ -30,6 +35,7 @@ public class EventController {
 	}
 
 	@GetMapping
+	@Operation(summary = "List published events", description = "Returns paginated published events with optional filters")
 	public ResponseEntity<ApiResponse<EventListResponse>> listEvents(@ModelAttribute EventSearchRequest request) {
 		Page<Event> page = eventService.searchEvents(request);
 		List<EventResponse> content = page.getContent().stream().map(eventMapper::toResponse).toList();
@@ -45,6 +51,7 @@ public class EventController {
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Get event details", description = "Returns detailed information for a published event")
 	public ResponseEntity<ApiResponse<EventDetailsResponse>> getEventDetails(@PathVariable Long id) {
 		Event event = eventService.getPublishedEventById(id);
 		return ResponseEntity.ok(ApiResponse.success(eventMapper.toDetailsResponse(event), "Event details fetched successfully"));

@@ -19,4 +19,8 @@ public class BookingLifecycleService {
 		booking.setStatus(BookingStatus.FAILED);
 	}
 
+	public void expireBooking(Booking booking) {
+		booking.setStatus(BookingStatus.EXPIRED);
+	}
+
 }

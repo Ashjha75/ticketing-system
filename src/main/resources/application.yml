@@ -32,3 +32,13 @@ jwt:
 auth:
   refresh-token-expiration: ${REFRESH_TOKEN_EXPIRATION:604800000}
 
+scheduler:
+  reservation:
+    fixed-delay: ${RESERVATION_SCHEDULER_DELAY:60000}
+    expiry-time-ms: ${RESERVATION_EXPIRY_TIME_MS:900000}
+    batch-size: ${RESERVATION_EXPIRY_BATCH_SIZE:50}
+  notification:
+    fixed-delay: ${NOTIFICATION_RETRY_DELAY:120000}
+    max-retry: ${NOTIFICATION_MAX_RETRY:3}
+    batch-size: ${NOTIFICATION_RETRY_BATCH_SIZE:20}
+

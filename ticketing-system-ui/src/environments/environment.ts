@@ -1,9 +1,9 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  // Base URL defaults to localhost:8080
+  // In a standard Angular app, to use OS environment variables you would need a custom builder,
+  // but for simplicity we set the default here.
+  apiUrl: "http://localhost:8080",
 };
 
 /*

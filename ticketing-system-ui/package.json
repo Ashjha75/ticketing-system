@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "config-env": "node set-env.js",
+    "start": "npm run config-env && ng serve",
+    "build": "npm run config-env && ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "npm run config-env && ng build --configuration production --base-href /ticketing-system/ && npx angular-cli-ghpages --dir=dist/ticketing-system-ui"
   },
   "private": true,
   "dependencies": {

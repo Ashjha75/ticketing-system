@@ -6,16 +6,24 @@
       <p>Enter your credentials to access your tickets</p>
     </div>
 
-    <form class="auth-form">
+    <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="user@example.com">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" formControlName="email" placeholder="user@example.com">
+        <small class="error-text" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Valid email is required.
+        </small>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" formControlName="password" placeholder="••••••••">
+        <small class="error-text" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password must be at least 8 characters.
+        </small>
       </div>
-      <button class="btn btn-primary auth-btn">Sign In</button>
+      <button class="btn btn-primary auth-btn" type="submit" [disabled]="loginForm.invalid || loading">
+        {{ loading ? 'Signing in...' : 'Sign In' }}
+      </button>
     </form>
 
     <div class="auth-footer">

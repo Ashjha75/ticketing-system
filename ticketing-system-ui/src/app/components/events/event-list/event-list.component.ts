@@ -1,3 +1,4 @@
+import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -40,16 +41,31 @@ export class EventListComponent implements OnInit {
             category: 'CONCERT',
             city: 'Mumbai',
             venue: 'DY Patil Stadium',
-            startTime: '2026-05-20T18:30:00Z'
+            startTime: '2026-05-20T18:30:00Z',
+            ticketPrice: 2999.00,
+            availableTickets: 5000
           },
           {
             id: 2,
             title: 'Tech Summit 2026',
             description: 'Global tech conference',
-            category: 'CONFERENCE',
+            category: 'OTHER',
             city: 'Bangalore',
             venue: 'BIEC',
-            startTime: '2026-06-15T09:00:00Z'
+            startTime: '2026-06-15T09:00:00Z',
+            ticketPrice: 1500.00,
+            availableTickets: 2000
+          },
+          {
+            id: 3,
+            title: 'Premier League Final',
+            description: 'Football match',
+            category: 'SPORTS',
+            city: 'London',
+            venue: 'Wembley Stadium',
+            startTime: '2026-05-25T19:00:00Z',
+            ticketPrice: 4500.00,
+            availableTickets: 8000
           }
         ];
       }

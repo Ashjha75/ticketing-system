@@ -1,4 +1,4 @@
-![title](C:\Users\Ashish jha\Desktop\ExtraProject\ticketing-system\src\main\resources\static\title.png)
+![title](https://raw.githubusercontent.com/Ashish5jha/aora/refs/heads/main/img/title.png)
 
 ## Ticketing System (Flash Sale / Event Booking API)
 

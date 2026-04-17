@@ -1,1 +1,101 @@
-<p>event-management works!</p>
+<main class="management-container">
+  <div class="page-header flex-between">
+    <div>
+      <h1>Event Management</h1>
+      <p>Create and manage ticketing events.</p>
+    </div>
+    <button class="btn btn-primary" (click)="toggleCreateForm()" *ngIf="!showCreateForm">
+      + Create Event
+    </button>
+    <button class="btn btn-secondary" (click)="toggleCreateForm()" *ngIf="showCreateForm">
+      Cancel
+    </button>
+  </div>
+
+  <div class="create-form-container" *ngIf="showCreateForm">
+    <div class="form-card">
+      <h2>Create New Event</h2>
+      
+      <form class="event-form" (ngSubmit)="createEvent()">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Event Title</label>
+            <input type="text" name="title" [(ngModel)]="newEvent.title" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" [(ngModel)]="newEvent.category">
+              <option value="CONCERT">Concert</option>
+              <option value="SPORTS">Sports</option>
+              <option value="THEATER">Theater</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" [(ngModel)]="newEvent.description" rows="3"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" name="city" [(ngModel)]="newEvent.city" required>
+          </div>
+          <div class="form-group">
+            <label>Venue</label>
+            <input type="text" name="venue" [(ngModel)]="newEvent.venue" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start Time (UTC)</label>
+            <input type="datetime-local" name="startTime" [(ngModel)]="newEvent.startTime" required>
+          </div>
+          <div class="form-group">
+            <label>End Time (UTC)</label>
+            <input type="datetime-local" name="endTime" [(ngModel)]="newEvent.endTime" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ticket Price (INR)</label>
+            <input type="number" name="ticketPrice" [(ngModel)]="newEvent.ticketPrice" required>
+          </div>
+          <div class="form-group">
+            <label>Total Tickets</label>
+            <input type="number" name="totalTickets" [(ngModel)]="newEvent.totalTickets" required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save as Draft</button>
+          <span class="success-msg" *ngIf="createSuccess">Event created successfully!</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="events-list" *ngIf="!loading && !showCreateForm">
+    <div *ngFor="let event of events" class="management-card">
+      <div class="event-basic">
+        <h3>{{event.title}}</h3>
+        <p>{{event.city}} • {{event.category}}</p>
+      </div>
+      <div class="event-status">
+        <span class="status-badge" [ngClass]="event.status?.toLowerCase()">{{event.status || 'PUBLISHED'}}</span>
+      </div>
+      <div class="event-actions">
+        <button class="btn btn-secondary action-btn" *ngIf="event.status === 'DRAFT'" (click)="publishEvent(event.id)">Publish</button>
+        <button class="btn btn-secondary action-btn" [routerLink]="['/admin/events', event.id, 'stats']">View Stats</button>
+      </div>
+    </div>
+  </div>
+</main>

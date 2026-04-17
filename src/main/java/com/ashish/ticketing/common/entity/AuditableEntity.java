@@ -1,23 +1,23 @@
 package com.ashish.ticketing.common.entity;
 
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
-import java.time.Instant;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-@Getter
-@Setter
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public abstract class AuditableEntity extends BaseEntity {
-    @CreatedDate
-    private Instant createdAt;
+    private String createdBy;
+    private String updatedBy;
 
-    @LastModifiedDate
-    private Instant updatedAt;
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 }
 

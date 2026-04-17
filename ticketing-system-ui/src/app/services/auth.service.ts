@@ -33,6 +33,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/refresh`, { refreshToken });
   }
 
+  /** POST /api/auth/logout — server-side token invalidation */
+  logoutApi(): Observable<any> {
+    const refreshToken = localStorage.getItem('refreshToken');
+    return this.http.post(`${this.apiUrl}/logout`, { refreshToken });
+  }
+
   private setSession(authResponse: any) {
     localStorage.setItem('accessToken', authResponse.accessToken);
     localStorage.setItem('refreshToken', authResponse.refreshToken);
@@ -40,6 +46,7 @@ export class AuthService {
     this.currentUserSubject.next(authResponse.user);
   }
 
+  /** Clears local session. Call logoutApi() first for server invalidation. */
   logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
@@ -53,5 +60,14 @@ export class AuthService {
 
   isLoggedIn() {
     return !!this.getToken();
+  }
+
+  getCurrentUser() {
+    return this.currentUserSubject.value;
+  }
+
+  isAdmin() {
+    const user = this.getCurrentUser();
+    return user?.role === 'ADMIN';
   }
 }

@@ -1,0 +1,52 @@
+<main class="hero">
+  <div class="pill">
+    <span class="red-dot"></span>
+    New: Coldplay Live Tickets Available
+  </div>
+
+  <h1 class="hero-title">The Best <span>Events</span> Platform</h1>
+  
+  <p class="hero-subtitle">
+    Discover and book tickets for the best events, concerts, and more.<br>
+    Join thousands of fans and never miss a beat.
+  </p>
+
+  <div class="hero-buttons">
+    <button class="btn btn-primary">
+      Explore Events
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+    <button class="btn btn-secondary">
+      Learn More
+    </button>
+  </div>
+
+  <div class="events-grid">
+    <div *ngIf="events.length === 0" class="error-card">
+      <div class="error-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      </div>
+      <h2>No Events Found</h2>
+      <p>There are currently no events available for booking. Please check back later.</p>
+      <button class="btn btn-primary btn-try-again" (click)="loadEvents()">Refresh</button>
+    </div>
+
+    <div *ngFor="let event of events" class="event-card">
+      <div class="event-image">
+        <span class="category-badge">{{event.category}}</span>
+      </div>
+      <div class="event-content">
+        <h3>{{event.title}}</h3>
+        <p class="event-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          {{event.startTime | date:'mediumDate'}}
+        </p>
+        <p class="event-location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          {{event.city}}, {{event.venue}}
+        </p>
+        <button class="btn btn-primary view-details" [routerLink]="['/events', event.id]">Book Tickets</button>
+      </div>
+    </div>
+  </div>
+</main>

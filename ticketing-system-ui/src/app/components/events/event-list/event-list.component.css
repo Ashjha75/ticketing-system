@@ -8,13 +8,13 @@
   padding: 8px 24px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
   transition: all 0.3s;
 }
 
 .search-box:focus-within {
   border-color: #111;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
 .search-box input {
@@ -66,6 +66,16 @@
   margin: 0 auto;
 }
 
+.error-card {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .event-card {
   background-color: white;
   border: 1px solid #eaeaea;
@@ -74,12 +84,12 @@
   display: flex;
   flex-direction: column;
   transition: all 0.3s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 .event-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 .event-image {
@@ -87,7 +97,16 @@
   background-color: #f5f5f5;
   position: relative;
   /* Placeholder for actual image */
-  background-image: linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 50%, #f3f3f3 50%, #f3f3f3 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    #f3f3f3 25%,
+    transparent 25%,
+    transparent 50%,
+    #f3f3f3 50%,
+    #f3f3f3 75%,
+    transparent 75%,
+    transparent
+  );
   background-size: 40px 40px;
 }
 
@@ -120,7 +139,8 @@
   color: #111;
 }
 
-.event-meta, .event-location {
+.event-meta,
+.event-location {
   display: flex;
   align-items: center;
   gap: 8px;

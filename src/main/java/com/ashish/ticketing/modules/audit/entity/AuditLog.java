@@ -5,8 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-
 import java.time.Instant;
 
 @Entity
@@ -20,31 +20,39 @@ public class AuditLog {
     @Column(nullable = false)
     private String action;
 
-    @Column(nullable = false)
-    private String entityName;
+    @Column(name = "entity_type", nullable = false)
+    private String entityType;
 
-    @Column(nullable = false)
-    private String entityId;
+    @Column(name = "entity_id")
+    private Long entityId;
 
-    @Column(nullable = false)
-    private Long userId;
+    @Column(name = "performed_by", nullable = false, length = 40)
+    private String performedBy;
 
-    @Column(nullable = false)
-    private Instant timestamp;
+    @Column(nullable = false, length = 20)
+    private String status;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", length = 1000)
     private String details;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
     public AuditLog() {
     }
 
-    public AuditLog(String action, String entityName, String entityId, Long userId, Instant timestamp, String details) {
+    public AuditLog(String action, String entityType, Long entityId, String performedBy, String status, String details) {
         this.action = action;
-        this.entityName = entityName;
+        this.entityType = entityType;
         this.entityId = entityId;
-        this.userId = userId;
-        this.timestamp = timestamp;
+        this.performedBy = performedBy;
+        this.status = status;
         this.details = details;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
     }
 
     public Long getId() {
@@ -63,36 +71,36 @@ public class AuditLog {
         this.action = action;
     }
 
-    public String getEntityName() {
-        return entityName;
+    public String getEntityType() {
+        return entityType;
     }
 
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
+    public void setEntityType(String entityType) {
+        this.entityType = entityType;
     }
 
-    public String getEntityId() {
+    public Long getEntityId() {
         return entityId;
     }
 
-    public void setEntityId(String entityId) {
+    public void setEntityId(Long entityId) {
         this.entityId = entityId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getPerformedBy() {
+        return performedBy;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setPerformedBy(String performedBy) {
+        this.performedBy = performedBy;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDetails() {
@@ -101,5 +109,13 @@ public class AuditLog {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }

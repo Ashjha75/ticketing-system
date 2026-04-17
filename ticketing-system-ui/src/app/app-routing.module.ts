@@ -8,16 +8,18 @@ import { BookingListComponent } from './components/bookings/booking-list/booking
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { EventManagementComponent } from './components/admin/event-management/event-management.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'events', component: EventListComponent },
   { path: 'events/:id', component: EventDetailComponent },
-  { path: 'bookings', component: BookingListComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'admin/dashboard', component: DashboardComponent },
-  { path: 'admin/events', component: EventManagementComponent },
+  { path: 'bookings', component: BookingListComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/events', component: EventManagementComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: '', redirectTo: '/events', pathMatch: 'full' }
 ];
 

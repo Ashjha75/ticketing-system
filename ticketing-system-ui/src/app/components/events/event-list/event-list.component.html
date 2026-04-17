@@ -5,52 +5,147 @@
   </div>
 
   <h1 class="hero-title">The Best <span>Events</span> Platform</h1>
-  
+
   <p class="hero-subtitle">
-    Discover and book tickets for the best events, concerts, and more.<br>
+    Discover and book tickets for the best events, concerts, and more.<br />
     Join thousands of fans and never miss a beat.
   </p>
 
   <div class="hero-buttons">
     <div class="search-box">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input type="text" placeholder="Search events, cities, artists..." [(ngModel)]="filters.keyword" (keyup.enter)="loadEvents()">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        placeholder="Search events, cities, artists..."
+        [(ngModel)]="filters.keyword"
+        (keyup.enter)="loadEvents()"
+      />
     </div>
   </div>
 
   <div class="filter-pills">
-    <button [class.active]="!filters.category" (click)="setCategory('')">All</button>
-    <button [class.active]="filters.category === 'CONCERT'" (click)="setCategory('CONCERT')">Concerts</button>
-    <button [class.active]="filters.category === 'SPORTS'" (click)="setCategory('SPORTS')">Sports</button>
-    <button [class.active]="filters.category === 'THEATER'" (click)="setCategory('THEATER')">Theater</button>
-    <button [class.active]="filters.category === 'OTHER'" (click)="setCategory('OTHER')">Other</button>
+    <button [class.active]="!filters.category" (click)="setCategory('')">
+      All
+    </button>
+    <button
+      [class.active]="filters.category === 'CONCERT'"
+      (click)="setCategory('CONCERT')"
+    >
+      Concerts
+    </button>
+    <button
+      [class.active]="filters.category === 'SPORTS'"
+      (click)="setCategory('SPORTS')"
+    >
+      Sports
+    </button>
+    <button
+      [class.active]="filters.category === 'THEATER'"
+      (click)="setCategory('THEATER')"
+    >
+      Theater
+    </button>
+    <button
+      [class.active]="filters.category === 'OTHER'"
+      (click)="setCategory('OTHER')"
+    >
+      Other
+    </button>
   </div>
 
   <div class="events-grid">
     <div *ngIf="events.length === 0" class="error-card">
       <div class="error-icon">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+          ></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
       </div>
       <h2>No Events Found</h2>
-      <p>There are currently no events available for booking. Please check back later.</p>
-      <button class="btn btn-primary btn-try-again" (click)="loadEvents()">Refresh</button>
+      <p>
+        There are currently no events available for booking. Please check back
+        later.
+      </p>
+      <button class="btn btn-primary btn-try-again" (click)="loadEvents()">
+        Refresh
+      </button>
     </div>
 
     <div *ngFor="let event of events" class="event-card">
-      <div class="event-image">
-        <span class="category-badge">{{event.category}}</span>
+      <div
+        class="event-image"
+        [style.background-image]="
+          event.image ? 'url(' + event.image + ')' : null
+        "
+        [style.background-size]="'cover'"
+        [style.background-position]="'center'"
+      >
+        <span class="category-badge">{{ event.category }}</span>
       </div>
       <div class="event-content">
-        <h3>{{event.title}}</h3>
+        <h3>{{ event.title }}</h3>
         <p class="event-meta">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          {{event.startTime | date:'mediumDate'}}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {{ event.startTime | date: "mediumDate" }}
         </p>
         <p class="event-location">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          {{event.city}}, {{event.venue}}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          {{ event.city }}, {{ event.venue }}
         </p>
-        <button class="btn btn-primary view-details" [routerLink]="['/events', event.id]">Book Tickets</button>
+        <button
+          class="btn btn-primary view-details"
+          [routerLink]="['/events', event.id]"
+        >
+          Book Tickets
+        </button>
       </div>
     </div>
   </div>

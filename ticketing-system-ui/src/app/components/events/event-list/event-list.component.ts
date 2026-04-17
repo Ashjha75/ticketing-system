@@ -44,6 +44,7 @@ export class EventListComponent implements OnInit {
             startTime: "2026-05-20T18:30:00Z",
             ticketPrice: 2999.0,
             availableTickets: 5000,
+            image: "assets/banner-1.png",
           },
           {
             id: 2,
@@ -55,6 +56,7 @@ export class EventListComponent implements OnInit {
             startTime: "2026-06-15T09:00:00Z",
             ticketPrice: 1500.0,
             availableTickets: 2000,
+            image: "assets/banner-2.png",
           },
           {
             id: 3,
@@ -66,6 +68,19 @@ export class EventListComponent implements OnInit {
             startTime: "2026-05-25T19:00:00Z",
             ticketPrice: 4500.0,
             availableTickets: 8000,
+            image: "assets/banner-3.png",
+          },
+          {
+            id: 4,
+            title: "Broadway Musical",
+            description: "Live theater performance",
+            category: "THEATER",
+            city: "New York",
+            venue: "Broadway Theater",
+            startTime: "2026-07-10T19:30:00Z",
+            ticketPrice: 8500.0,
+            availableTickets: 1200,
+            image: "assets/banner-4.png",
           },
         ];
 

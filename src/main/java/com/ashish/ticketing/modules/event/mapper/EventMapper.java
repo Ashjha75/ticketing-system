@@ -5,7 +5,10 @@ import com.ashish.ticketing.modules.event.dto.request.UpdateEventRequest;
 import com.ashish.ticketing.modules.event.dto.response.EventDetailsResponse;
 import com.ashish.ticketing.modules.event.dto.response.EventResponse;
 import com.ashish.ticketing.modules.event.entity.Event;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+@Component
 public class EventMapper {
 
     public Event toEntity(CreateEventRequest request) {
@@ -13,14 +16,17 @@ public class EventMapper {
             return null;
         }
         Event event = new Event();
-        event.setName(request.getName());
+        event.setTitle(request.getTitle());
         event.setDescription(request.getDescription());
         event.setCategory(request.getCategory());
-        event.setStatus(request.getStatus());
+        event.setCity(request.getCity());
+        event.setVenue(request.getVenue());
         event.setStartTime(request.getStartTime());
         event.setEndTime(request.getEndTime());
-        event.setVenue(request.getVenue());
-        event.setCapacity(request.getCapacity());
+        event.setBookingStartTime(request.getBookingStartTime());
+        event.setBookingEndTime(request.getBookingEndTime());
+        event.setTicketPrice(request.getTicketPrice());
+        event.setTotalTickets(request.getTotalTickets());
         return event;
     }
 
@@ -28,8 +34,8 @@ public class EventMapper {
         if (event == null || request == null) {
             return;
         }
-        if (request.getName() != null) {
-            event.setName(request.getName());
+        if (StringUtils.hasText(request.getTitle())) {
+            event.setTitle(request.getTitle());
         }
         if (request.getDescription() != null) {
             event.setDescription(request.getDescription());
@@ -37,8 +43,11 @@ public class EventMapper {
         if (request.getCategory() != null) {
             event.setCategory(request.getCategory());
         }
-        if (request.getStatus() != null) {
-            event.setStatus(request.getStatus());
+        if (StringUtils.hasText(request.getCity())) {
+            event.setCity(request.getCity());
+        }
+        if (StringUtils.hasText(request.getVenue())) {
+            event.setVenue(request.getVenue());
         }
         if (request.getStartTime() != null) {
             event.setStartTime(request.getStartTime());
@@ -46,11 +55,17 @@ public class EventMapper {
         if (request.getEndTime() != null) {
             event.setEndTime(request.getEndTime());
         }
-        if (request.getVenue() != null) {
-            event.setVenue(request.getVenue());
+        if (request.getBookingStartTime() != null) {
+            event.setBookingStartTime(request.getBookingStartTime());
         }
-        if (request.getCapacity() != null) {
-            event.setCapacity(request.getCapacity());
+        if (request.getBookingEndTime() != null) {
+            event.setBookingEndTime(request.getBookingEndTime());
+        }
+        if (request.getTicketPrice() != null) {
+            event.setTicketPrice(request.getTicketPrice());
+        }
+        if (request.getTotalTickets() != null) {
+            event.setTotalTickets(request.getTotalTickets());
         }
     }
 
@@ -60,11 +75,12 @@ public class EventMapper {
         }
         return new EventResponse(
             event.getId(),
-            event.getName(),
+            event.getTitle(),
+            event.getCity(),
             event.getCategory(),
-            event.getStatus(),
             event.getStartTime(),
-            event.getEndTime()
+            event.getTicketPrice(),
+            event.getAvailableTickets()
         );
     }
 
@@ -74,16 +90,19 @@ public class EventMapper {
         }
         return new EventDetailsResponse(
             event.getId(),
-            event.getName(),
+            event.getTitle(),
             event.getDescription(),
             event.getCategory(),
+            event.getCity(),
+            event.getVenue(),
+            event.getBookingStartTime(),
+            event.getBookingEndTime(),
+            event.getTicketPrice(),
+            event.getTotalTickets(),
+            event.getAvailableTickets(),
             event.getStatus(),
             event.getStartTime(),
-            event.getEndTime(),
-            event.getVenue(),
-            event.getCapacity(),
-            event.getCreatedAt(),
-            event.getUpdatedAt()
+            event.getEndTime()
         );
     }
 }

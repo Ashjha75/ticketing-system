@@ -3,36 +3,46 @@ package com.ashish.ticketing.modules.event.dto.response;
 import com.ashish.ticketing.modules.event.enums.EventCategory;
 import com.ashish.ticketing.modules.event.enums.EventStatus;
 import java.time.Instant;
+import java.math.BigDecimal;
 
 public class EventDetailsResponse {
 
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private EventCategory category;
+    private String city;
+    private String venue;
+    private Instant bookingStartTime;
+    private Instant bookingEndTime;
+    private BigDecimal ticketPrice;
+    private Integer totalTickets;
+    private Integer availableTickets;
     private EventStatus status;
     private Instant startTime;
     private Instant endTime;
-    private String venue;
-    private Integer capacity;
-    private Instant createdAt;
-    private Instant updatedAt;
 
     public EventDetailsResponse() {
     }
 
-    public EventDetailsResponse(Long id, String name, String description, EventCategory category, EventStatus status, Instant startTime, Instant endTime, String venue, Integer capacity, Instant createdAt, Instant updatedAt) {
+    public EventDetailsResponse(Long id, String title, String description, EventCategory category, String city,
+                                String venue, Instant bookingStartTime, Instant bookingEndTime,
+                                BigDecimal ticketPrice, Integer totalTickets, Integer availableTickets,
+                                EventStatus status, Instant startTime, Instant endTime) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.category = category;
+        this.city = city;
+        this.venue = venue;
+        this.bookingStartTime = bookingStartTime;
+        this.bookingEndTime = bookingEndTime;
+        this.ticketPrice = ticketPrice;
+        this.totalTickets = totalTickets;
+        this.availableTickets = availableTickets;
         this.status = status;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.venue = venue;
-        this.capacity = capacity;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -43,12 +53,12 @@ public class EventDetailsResponse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -65,6 +75,62 @@ public class EventDetailsResponse {
 
     public void setCategory(EventCategory category) {
         this.category = category;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public Instant getBookingStartTime() {
+        return bookingStartTime;
+    }
+
+    public void setBookingStartTime(Instant bookingStartTime) {
+        this.bookingStartTime = bookingStartTime;
+    }
+
+    public Instant getBookingEndTime() {
+        return bookingEndTime;
+    }
+
+    public void setBookingEndTime(Instant bookingEndTime) {
+        this.bookingEndTime = bookingEndTime;
+    }
+
+    public BigDecimal getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(BigDecimal ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public Integer getTotalTickets() {
+        return totalTickets;
+    }
+
+    public void setTotalTickets(Integer totalTickets) {
+        this.totalTickets = totalTickets;
+    }
+
+    public Integer getAvailableTickets() {
+        return availableTickets;
+    }
+
+    public void setAvailableTickets(Integer availableTickets) {
+        this.availableTickets = availableTickets;
     }
 
     public EventStatus getStatus() {
@@ -91,36 +157,5 @@ public class EventDetailsResponse {
         this.endTime = endTime;
     }
 
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
 

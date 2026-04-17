@@ -1,1 +1,57 @@
-<p>profile works!</p>
+<main class="profile-container">
+  <div class="page-header">
+    <h1>Account Settings</h1>
+    <p>Manage your profile and account preferences.</p>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="profile-content" *ngIf="!loading && profile">
+    <div class="profile-sidebar">
+      <div class="user-avatar">
+        {{profile.name ? profile.name.charAt(0).toUpperCase() : profile.email.charAt(0).toUpperCase()}}
+      </div>
+      <h2>{{profile.name || 'User'}}</h2>
+      <p class="user-email">{{profile.email}}</p>
+      <span class="role-badge">{{profile.role}}</span>
+      
+      <div class="sidebar-actions">
+        <button class="btn btn-secondary logout-btn" (click)="logout()">Sign Out</button>
+      </div>
+    </div>
+
+    <div class="profile-main">
+      <div class="profile-card">
+        <h3>Personal Information</h3>
+        <p class="card-subtitle">Update your personal details here.</p>
+
+        <form class="profile-form" (ngSubmit)="updateProfile()">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="John Doe">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" [value]="profile.email" disabled class="disabled-input">
+            <span class="help-text">Email address cannot be changed.</span>
+          </div>
+
+          <h3 class="section-title">Security</h3>
+          
+          <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Leave blank to keep current">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <span class="success-msg" *ngIf="updateSuccess">Profile updated successfully!</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

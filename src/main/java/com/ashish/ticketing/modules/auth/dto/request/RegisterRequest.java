@@ -1,37 +1,27 @@
 package com.ashish.ticketing.modules.auth.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class RegisterRequest {
 
-    private String firstName;
-    private String lastName;
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
+    @Size(min = 8, max = 255)
     private String password;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public RegisterRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return email;

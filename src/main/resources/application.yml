@@ -2,16 +2,22 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: optional:file:.env[.properties],optional:file:./ticketing-system/.env[.properties],optional:file:./ticketing-system/src/main/resources/.env[.properties]
   application:
     name: ticketing-system
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/ticketing_db}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
       host: ${REDIS_HOST:localhost}
@@ -20,7 +26,7 @@ spring:
       database: ${REDIS_DB:0}
 
 jwt:
-  secret: ${JWT_SECRET:change-me-to-a-long-random-secret-key-at-least-32-bytes}
+  secret: ${JWT_SECRET:9zFz4xk8K2hQvJrP1wM7yE6uC3bTn5L0sDqA8fGvRjXcH9pW2mN4ZtYB6eUoI1KqQh7rXvL2aF5mP8sD3cG0Jw==}
   expiration: ${JWT_EXPIRATION:86400000}
 
 auth:

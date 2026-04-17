@@ -1,44 +1,38 @@
 package com.ashish.ticketing.modules.booking.dto.response;
 
+import java.math.BigDecimal;
+
 public class BookingSummaryResponse {
 
-    private Long id;
-    private String eventName;
-    private Double totalPrice;
+    private String bookingNumber;
+    private Long eventId;
     private String status;
+    private BigDecimal amount;
 
     public BookingSummaryResponse() {
     }
 
-    public BookingSummaryResponse(Long id, String eventName, Double totalPrice, String status) {
-        this.id = id;
-        this.eventName = eventName;
-        this.totalPrice = totalPrice;
+    public BookingSummaryResponse(String bookingNumber, Long eventId, String status, BigDecimal amount) {
+        this.bookingNumber = bookingNumber;
+        this.eventId = eventId;
         this.status = status;
+        this.amount = amount;
     }
 
-    public Long getId() {
-        return id;
+    public String getBookingNumber() {
+        return bookingNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
-    public String getEventName() {
-        return eventName;
+    public Long getEventId() {
+        return eventId;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 
     public String getStatus() {
@@ -47,5 +41,13 @@ public class BookingSummaryResponse {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

@@ -10,11 +10,13 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  /** GET /api/users/me */
   getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/me`);
   }
 
-  updateProfile(data: any): Observable<any> {
+  /** PUT /api/users/me  — accepts partial { name?, password? } */
+  updateProfile(data: { name?: string; password?: string }): Observable<any> {
     return this.http.put(`${this.apiUrl}/me`, data);
   }
 }

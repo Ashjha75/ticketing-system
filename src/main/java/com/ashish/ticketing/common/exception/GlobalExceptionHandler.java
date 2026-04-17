@@ -1,6 +1,7 @@
 package com.ashish.ticketing.common.exception;
 
 import com.ashish.ticketing.common.response.ErrorResponse;
+import com.ashish.ticketing.modules.inventory.exception.InventoryException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import java.time.Instant;
@@ -55,6 +56,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolation(
             ConstraintViolationException ex,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(InventoryException.class)
+    public ResponseEntity<ErrorResponse> handleInventoryException(
+            InventoryException ex,
             HttpServletRequest request
     ) {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);

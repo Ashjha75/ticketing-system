@@ -1,40 +1,74 @@
 package com.ashish.ticketing.modules.event.dto.request;
 
 import com.ashish.ticketing.modules.event.enums.EventCategory;
-import com.ashish.ticketing.modules.event.enums.EventStatus;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.Instant;
+import java.math.BigDecimal;
 
 public class CreateEventRequest {
 
-    private String name;
+    @NotBlank
+    private String title;
+
     private String description;
+
+    @NotNull
     private EventCategory category;
-    private EventStatus status;
-    private Instant startTime;
-    private Instant endTime;
+
+    @NotBlank
+    private String city;
+
+    @NotBlank
     private String venue;
-    private Integer capacity;
+
+    @NotNull
+    private Instant startTime;
+
+    @NotNull
+    private Instant endTime;
+
+    @NotNull
+    private Instant bookingStartTime;
+
+    @NotNull
+    private Instant bookingEndTime;
+
+    @NotNull
+    @DecimalMin(value = "0.01")
+    private BigDecimal ticketPrice;
+
+    @NotNull
+    @Positive
+    private Integer totalTickets;
 
     public CreateEventRequest() {
     }
 
-    public CreateEventRequest(String name, String description, EventCategory category, EventStatus status, Instant startTime, Instant endTime, String venue, Integer capacity) {
-        this.name = name;
+    public CreateEventRequest(String title, String description, EventCategory category, String city, String venue,
+                              Instant startTime, Instant endTime, Instant bookingStartTime, Instant bookingEndTime,
+                              BigDecimal ticketPrice, Integer totalTickets) {
+        this.title = title;
         this.description = description;
         this.category = category;
-        this.status = status;
+        this.city = city;
+        this.venue = venue;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.venue = venue;
-        this.capacity = capacity;
+        this.bookingStartTime = bookingStartTime;
+        this.bookingEndTime = bookingEndTime;
+        this.ticketPrice = ticketPrice;
+        this.totalTickets = totalTickets;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -53,12 +87,12 @@ public class CreateEventRequest {
         this.category = category;
     }
 
-    public EventStatus getStatus() {
-        return status;
+    public String getCity() {
+        return city;
     }
 
-    public void setStatus(EventStatus status) {
-        this.status = status;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Instant getStartTime() {
@@ -77,6 +111,30 @@ public class CreateEventRequest {
         this.endTime = endTime;
     }
 
+    public Instant getBookingStartTime() {
+        return bookingStartTime;
+    }
+
+    public void setBookingStartTime(Instant bookingStartTime) {
+        this.bookingStartTime = bookingStartTime;
+    }
+
+    public Instant getBookingEndTime() {
+        return bookingEndTime;
+    }
+
+    public void setBookingEndTime(Instant bookingEndTime) {
+        this.bookingEndTime = bookingEndTime;
+    }
+
+    public BigDecimal getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(BigDecimal ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
     public String getVenue() {
         return venue;
     }
@@ -85,12 +143,12 @@ public class CreateEventRequest {
         this.venue = venue;
     }
 
-    public Integer getCapacity() {
-        return capacity;
+    public Integer getTotalTickets() {
+        return totalTickets;
     }
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
+    public void setTotalTickets(Integer totalTickets) {
+        this.totalTickets = totalTickets;
     }
 }
 

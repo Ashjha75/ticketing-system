@@ -8,6 +8,8 @@ public class TicketingSystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TicketingSystemApplication.class, args);
+        System.out.println("Compiled Successfully ✨✨");
+
     }
 
 }

@@ -1,28 +1,31 @@
 package com.ashish.ticketing.modules.event.dto.response;
 
 import com.ashish.ticketing.modules.event.enums.EventCategory;
-import com.ashish.ticketing.modules.event.enums.EventStatus;
 import java.time.Instant;
+import java.math.BigDecimal;
 
 public class EventResponse {
 
     private Long id;
-    private String name;
+    private String title;
+    private String city;
     private EventCategory category;
-    private EventStatus status;
     private Instant startTime;
-    private Instant endTime;
+    private BigDecimal ticketPrice;
+    private Integer availableTickets;
 
     public EventResponse() {
     }
 
-    public EventResponse(Long id, String name, EventCategory category, EventStatus status, Instant startTime, Instant endTime) {
+    public EventResponse(Long id, String title, String city, EventCategory category, Instant startTime,
+                         BigDecimal ticketPrice, Integer availableTickets) {
         this.id = id;
-        this.name = name;
+        this.title = title;
+        this.city = city;
         this.category = category;
-        this.status = status;
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.ticketPrice = ticketPrice;
+        this.availableTickets = availableTickets;
     }
 
     public Long getId() {
@@ -33,12 +36,20 @@ public class EventResponse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public EventCategory getCategory() {
@@ -49,14 +60,6 @@ public class EventResponse {
         this.category = category;
     }
 
-    public EventStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EventStatus status) {
-        this.status = status;
-    }
-
     public Instant getStartTime() {
         return startTime;
     }
@@ -65,12 +68,20 @@ public class EventResponse {
         this.startTime = startTime;
     }
 
-    public Instant getEndTime() {
-        return endTime;
+    public BigDecimal getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setEndTime(Instant endTime) {
-        this.endTime = endTime;
+    public void setTicketPrice(BigDecimal ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public Integer getAvailableTickets() {
+        return availableTickets;
+    }
+
+    public void setAvailableTickets(Integer availableTickets) {
+        this.availableTickets = availableTickets;
     }
 }
 

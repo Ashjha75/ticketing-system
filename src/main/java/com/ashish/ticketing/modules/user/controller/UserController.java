@@ -8,6 +8,9 @@ import com.ashish.ticketing.modules.user.entity.User;
 import com.ashish.ticketing.modules.user.enums.UserStatus;
 import com.ashish.ticketing.modules.user.mapper.UserMapper;
 import com.ashish.ticketing.modules.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "Users", description = "User profile and admin user operations")
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
 
 	private final UserService userService;
@@ -33,6 +38,7 @@ public class UserController {
 	}
 
 	@GetMapping("/me")
+	@Operation(summary = "Get my profile", description = "Returns the authenticated user's profile")
 	public ResponseEntity<ApiResponse<UserProfileResponse>> getCurrentUserProfile() {
 		User currentUser = userService.getCurrentUser();
 		UserProfileResponse profileResponse = userMapper.toUserProfileResponse(currentUser);
@@ -40,6 +46,7 @@ public class UserController {
 	}
 
 	@PutMapping("/me")
+	@Operation(summary = "Update my profile", description = "Updates the authenticated user's allowed fields")
 	public ResponseEntity<ApiResponse<UserProfileResponse>> updateCurrentUserProfile(
 			@Valid @RequestBody UpdateUserRequest request
 	) {
@@ -51,6 +58,7 @@ public class UserController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}")
+	@Operation(summary = "Get user by id (admin)", description = "Returns user data by id for admin use")
 	public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable Long id) {
 		User user = userService.getUserById(id);
 		return ResponseEntity.ok(ApiResponse.success(userMapper.toUserResponse(user), "User fetched successfully"));
@@ -58,6 +66,7 @@ public class UserController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PatchMapping("/{id}/status")
+	@Operation(summary = "Change user status (admin)", description = "Updates a user's status for admin actions")
 	public ResponseEntity<ApiResponse<Void>> changeUserStatus(
 			@PathVariable Long id,
 			@RequestParam UserStatus status

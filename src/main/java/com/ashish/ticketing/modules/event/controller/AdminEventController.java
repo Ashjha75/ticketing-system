@@ -7,6 +7,9 @@ import com.ashish.ticketing.modules.event.dto.response.EventDetailsResponse;
 import com.ashish.ticketing.modules.event.entity.Event;
 import com.ashish.ticketing.modules.event.mapper.EventMapper;
 import com.ashish.ticketing.modules.event.service.EventService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/admin/events")
 @PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "Admin Events", description = "Admin-only event management APIs")
+@SecurityRequirement(name = "bearerAuth")
 public class AdminEventController {
 
 	private final EventService eventService;
@@ -32,12 +37,14 @@ public class AdminEventController {
 	}
 
 	@PostMapping
+	@Operation(summary = "Create event", description = "Creates an event in DRAFT state")
 	public ResponseEntity<ApiResponse<EventDetailsResponse>> createEvent(@Valid @RequestBody CreateEventRequest request) {
 		Event created = eventService.createEvent(request);
 		return ResponseEntity.ok(ApiResponse.success(eventMapper.toDetailsResponse(created), "Event created successfully"));
 	}
 
 	@PutMapping("/{id}")
+	@Operation(summary = "Update event", description = "Partially updates event details with validation")
 	public ResponseEntity<ApiResponse<EventDetailsResponse>> updateEvent(
 			@PathVariable Long id,
 			@Valid @RequestBody UpdateEventRequest request
@@ -47,12 +54,14 @@ public class AdminEventController {
 	}
 
 	@PatchMapping("/{id}/publish")
+	@Operation(summary = "Publish event", description = "Publishes a valid event for user visibility and booking")
 	public ResponseEntity<ApiResponse<Void>> publishEvent(@PathVariable Long id) {
 		eventService.publishEvent(id);
 		return ResponseEntity.ok(ApiResponse.success(null, "Event published successfully"));
 	}
 
 	@PatchMapping("/{id}/cancel")
+	@Operation(summary = "Cancel event", description = "Cancels an event and prevents further booking")
 	public ResponseEntity<ApiResponse<Void>> cancelEvent(@PathVariable Long id) {
 		eventService.cancelEvent(id);
 		return ResponseEntity.ok(ApiResponse.success(null, "Event cancelled successfully"));

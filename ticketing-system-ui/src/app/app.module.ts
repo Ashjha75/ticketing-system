@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { EventListComponent } from './components/events/event-list/event-list.component';
 import { EventDetailComponent } from './components/events/event-detail/event-detail.component';
 import { BookingListComponent } from './components/bookings/booking-list/booking-list.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BookingListComponent } from './components/bookings/booking-list/booking
     RegisterComponent,
     EventListComponent,
     EventDetailComponent,
-    BookingListComponent
+    BookingListComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

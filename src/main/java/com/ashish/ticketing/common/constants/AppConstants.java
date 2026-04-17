@@ -4,6 +4,8 @@ public final class AppConstants {
     public static final String API_V1 = "/api/v1";
     public static final int DEFAULT_PAGE_SIZE = 20;
     public static final int MAX_PAGE_SIZE = 200;
+    public static final String DEFAULT_SORT = "createdAt,desc";
+    public static final String SYSTEM_USER = "system";
 
     private AppConstants() {
     }

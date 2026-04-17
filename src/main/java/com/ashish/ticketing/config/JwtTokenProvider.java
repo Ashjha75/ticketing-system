@@ -1,12 +1,15 @@
 package com.ashish.ticketing.config;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -17,38 +20,36 @@ public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
-    @Value("${app.jwtSecret:defaultSecretKeyForJwtAuthenticationWhichShouldBeLongEnoughToBeSecure}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwtExpirationInMs:86400000}") // Default to 1 day
-    private int jwtExpirationInMs;
+    @Value("${jwt.expiration}")
+    private long jwtExpirationInMs;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public String generateToken(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-
+    public String generateToken(String userId, String role) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
-                .compact();
+            .setSubject(userId)
+            .claim("role", role)
+            .setIssuedAt(now)
+            .setExpiration(expiryDate)
+            .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+            .compact();
     }
 
-    public String getUsernameFromJWT(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public String getUserId(String token) {
+        return getAllClaims(token).getSubject();
+    }
 
-        return claims.getSubject();
+    public String getUserRole(String token) {
+        Object role = getAllClaims(token).get("role");
+        return role == null ? null : role.toString();
     }
 
     public boolean validateToken(String authToken) {
@@ -67,5 +68,13 @@ public class JwtTokenProvider {
             logger.error("JWT claims string is empty");
         }
         return false;
+    }
+
+    private Claims getAllClaims(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(getSigningKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
     }
 }

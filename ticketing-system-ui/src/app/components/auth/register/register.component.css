@@ -94,3 +94,14 @@
 .auth-footer a:hover {
   text-decoration: underline;
 }
+
+.error-text {
+  color: #c62828;
+  font-size: 12px;
+  margin-top: -4px;
+}
+
+.auth-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

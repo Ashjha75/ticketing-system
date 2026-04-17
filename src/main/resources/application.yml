@@ -42,3 +42,12 @@ scheduler:
     max-retry: ${NOTIFICATION_MAX_RETRY:3}
     batch-size: ${NOTIFICATION_RETRY_BATCH_SIZE:20}
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+

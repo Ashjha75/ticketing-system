@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser$.subscribe((user) => {
       this.isLoggedIn = !!user;
-      this.isAdmin = user?.role === "ADMIN";
+      this.isAdmin = this.authService.isAdmin();
     });
 
     this.toastService.toastState$.subscribe((toast) => {

@@ -1,18 +1,20 @@
 package com.ashish.ticketing.modules.auth.dto.response;
 
+import com.ashish.ticketing.modules.user.dto.response.UserResponse;
+
 public class AuthResponse {
 
     private String accessToken;
     private String refreshToken;
-    private String message;
+    private UserResponse user;
 
     public AuthResponse() {
     }
 
-    public AuthResponse(String accessToken, String refreshToken, String message) {
+    public AuthResponse(String accessToken, String refreshToken, UserResponse user) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-        this.message = message;
+        this.user = user;
     }
 
     public String getAccessToken() {
@@ -31,11 +33,11 @@ public class AuthResponse {
         this.refreshToken = refreshToken;
     }
 
-    public String getMessage() {
-        return message;
+    public UserResponse getUser() {
+        return user;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUser(UserResponse user) {
+        this.user = user;
     }
 }

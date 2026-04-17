@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-event-list',
@@ -7,43 +7,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventListComponent implements OnInit {
   events: any[] = [];
+  filters = {
+    keyword: '',
+    category: '',
+    city: ''
+  };
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
     this.loadEvents();
   }
 
+  setCategory(category: string) {
+    this.filters.category = category;
+    this.loadEvents();
+  }
+
   loadEvents() {
-    // Mock data based on ui-md.md
-    this.events = [
-      {
-        id: 1,
-        title: 'Coldplay Live',
-        description: 'Music concert',
-        category: 'CONCERT',
-        city: 'Mumbai',
-        venue: 'DY Patil Stadium',
-        startTime: '2026-05-20T18:30:00Z'
+    this.eventService.getEvents(this.filters).subscribe({
+      next: (res: any) => {
+        this.events = res.data?.content || [];
       },
-      {
-        id: 2,
-        title: 'Tech Summit 2026',
-        description: 'Global tech conference',
-        category: 'CONFERENCE',
-        city: 'Bangalore',
-        venue: 'BIEC',
-        startTime: '2026-06-15T09:00:00Z'
-      },
-      {
-        id: 3,
-        title: 'Premier League Final',
-        description: 'Football match',
-        category: 'SPORTS',
-        city: 'London',
-        venue: 'Wembley Stadium',
-        startTime: '2026-05-25T19:00:00Z'
+      error: (err) => {
+        console.error('Error loading events', err);
+        // Fallback to mock data if API fails (for demo purposes)
+        this.events = [
+          {
+            id: 1,
+            title: 'Coldplay Live',
+            description: 'Music concert',
+            category: 'CONCERT',
+            city: 'Mumbai',
+            venue: 'DY Patil Stadium',
+            startTime: '2026-05-20T18:30:00Z'
+          },
+          {
+            id: 2,
+            title: 'Tech Summit 2026',
+            description: 'Global tech conference',
+            category: 'CONFERENCE',
+            city: 'Bangalore',
+            venue: 'BIEC',
+            startTime: '2026-06-15T09:00:00Z'
+          }
+        ];
       }
-    ];
+    });
   }
 }

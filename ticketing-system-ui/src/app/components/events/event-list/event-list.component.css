@@ -1,3 +1,62 @@
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  border: 1px solid #eaeaea;
+  border-radius: 30px;
+  padding: 8px 24px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  transition: all 0.3s;
+}
+
+.search-box:focus-within {
+  border-color: #111;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.search-box input {
+  border: none;
+  background: none;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  color: #111;
+}
+
+.filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.filter-pills button {
+  background-color: white;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-pills button:hover {
+  border-color: #111;
+  color: #111;
+}
+
+.filter-pills button.active {
+  background-color: #111;
+  border-color: #111;
+  color: white;
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

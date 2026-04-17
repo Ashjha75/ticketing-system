@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,6 +31,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     long countByStatus(BookingStatus status);
 
     long countByCreatedAtGreaterThanEqual(Instant start);
+
+    Page<Booking> findByStatusAndCreatedAtBefore(BookingStatus status, Instant createdAt, Pageable pageable);
 
     @Query("select coalesce(sum(b.amount), 0) from Booking b where b.status = :status")
     BigDecimal sumAmountByStatus(@Param("status") BookingStatus status);

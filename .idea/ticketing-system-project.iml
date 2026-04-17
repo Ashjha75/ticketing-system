@@ -2,7 +2,13 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$PROJECT_DIR$/ticketing-system">
+      <sourceFolder url="file://$PROJECT_DIR$/ticketing-system/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$PROJECT_DIR$/ticketing-system/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$PROJECT_DIR$/ticketing-system/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$PROJECT_DIR$/ticketing-system/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$PROJECT_DIR$/ticketing-system/target" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

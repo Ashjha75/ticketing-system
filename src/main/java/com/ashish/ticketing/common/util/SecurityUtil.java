@@ -1,6 +1,5 @@
 package com.ashish.ticketing.common.util;
 
-import java.util.Optional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,25 +8,31 @@ public final class SecurityUtil {
     private SecurityUtil() {
     }
 
-    public static Optional<String> getCurrentUsername() {
+    public static String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return Optional.empty();
+            return null;
         }
-        return Optional.ofNullable(authentication.getName());
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof String) {
+            return (String) principal;
+        }
+        return authentication.getName();
     }
 
-    public static boolean hasRole(String role) {
+    public static String getCurrentUserRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return false;
+            return null;
         }
         for (GrantedAuthority authority : authentication.getAuthorities()) {
-            if (authority.getAuthority().equals(role)) {
-                return true;
+            String raw = authority.getAuthority();
+            if (raw == null || raw.isBlank()) {
+                continue;
             }
+            return raw.startsWith("ROLE_") ? raw.substring(5) : raw;
         }
-        return false;
+        return null;
     }
 }
 

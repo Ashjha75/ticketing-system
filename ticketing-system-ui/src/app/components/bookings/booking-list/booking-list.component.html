@@ -1,1 +1,44 @@
-<p>booking-list works!</p>
+<main class="bookings-container">
+  <div class="page-header">
+    <h1>My Bookings</h1>
+    <p>Manage your event reservations and tickets.</p>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="bookings-list" *ngIf="!loading">
+    <div *ngIf="bookings.length === 0" class="empty-state">
+      <div class="empty-icon">🎟️</div>
+      <h2>No Bookings Found</h2>
+      <p>You haven't booked any events yet. Explore our events and reserve your spot!</p>
+      <button class="btn btn-primary" routerLink="/events">Explore Events</button>
+    </div>
+
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <div class="booking-header">
+        <span class="booking-number">{{booking.bookingNumber}}</span>
+        <span class="status-badge" [ngClass]="booking.status.toLowerCase()">
+          {{booking.status}}
+        </span>
+      </div>
+      
+      <div class="booking-body">
+        <div class="booking-info">
+          <h3>{{booking.eventTitle || 'Event ID: ' + booking.eventId}}</h3>
+          <p class="booking-date">Booked on: {{booking.createdAt | date:'mediumDate'}}</p>
+        </div>
+        <div class="booking-amount">
+          <strong>{{booking.amount | currency:'INR'}}</strong>
+        </div>
+      </div>
+
+      <div class="booking-footer" *ngIf="booking.status === 'CONFIRMED'">
+        <button class="btn btn-secondary cancel-btn" (click)="cancelBooking(booking.bookingNumber || booking.id)">
+          Cancel Booking
+        </button>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,1 +1,87 @@
-<p>event-detail works!</p>
+<main class="event-detail-container" *ngIf="event">
+  <div class="event-header">
+    <button class="back-btn" routerLink="/events">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Back to Events
+    </button>
+  </div>
+
+  <div class="event-content-grid">
+    <div class="event-main">
+      <div class="event-hero-image">
+        <span class="category-badge">{{event.category}}</span>
+      </div>
+      
+      <div class="event-info">
+        <h1 class="event-title">{{event.title}}</h1>
+        
+        <div class="event-meta-list">
+          <div class="meta-item">
+            <div class="meta-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="meta-text">
+              <strong>Date & Time</strong>
+              <span>{{event.startTime | date:'fullDate'}} at {{event.startTime | date:'shortTime'}}</span>
+            </div>
+          </div>
+          
+          <div class="meta-item">
+            <div class="meta-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="meta-text">
+              <strong>Location</strong>
+              <span>{{event.venue}}, {{event.city}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-description">
+          <h3>About this event</h3>
+          <p>{{event.description}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-sidebar">
+      <div class="booking-card">
+        <h3>Reserve Your Spot</h3>
+        
+        <div class="price-row">
+          <span class="price-label">Price per ticket</span>
+          <span class="price-value">{{event.ticketPrice | currency:'INR'}}</span>
+        </div>
+
+        <div class="quantity-selector">
+          <span class="qty-label">Quantity</span>
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="decrement()">-</button>
+            <span class="qty-value">{{quantity}}</span>
+            <button class="qty-btn" (click)="increment()">+</button>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Total</span>
+          <strong>{{ (event.ticketPrice * quantity) | currency:'INR' }}</strong>
+        </div>
+
+        <button class="btn btn-primary checkout-btn" (click)="bookTickets()" [disabled]="bookingSuccess">
+          {{ bookingSuccess ? 'Booking Confirmed!' : 'Proceed to Checkout' }}
+        </button>
+
+        <div class="success-message" *ngIf="bookingSuccess">
+          <span class="emoji">🎉</span> Your tickets have been reserved! Redirecting...
+        </div>
+        <div class="error-message" *ngIf="bookingError">
+          {{bookingError}}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="loading-state" *ngIf="loading">
+  <div class="spinner"></div>
+</div>

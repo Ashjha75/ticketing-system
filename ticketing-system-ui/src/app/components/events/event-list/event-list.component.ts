@@ -14,6 +14,13 @@ export class EventListComponent implements OnInit {
     city: "",
   };
 
+  private fallbackImages = [
+    "assets/banner-1.png",
+    "assets/banner-2.png",
+    "assets/banner-3.png",
+    "assets/banner-4.png",
+  ];
+
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
@@ -28,7 +35,14 @@ export class EventListComponent implements OnInit {
   loadEvents() {
     this.eventService.getEvents(this.filters).subscribe({
       next: (res: any) => {
-        this.events = res.data?.content || [];
+        let fetchedEvents = res.data?.content || [];
+        this.events = fetchedEvents.map((event: any, index: number) => {
+          if (!event.image) {
+            event.image =
+              this.fallbackImages[index % this.fallbackImages.length];
+          }
+          return event;
+        });
       },
       error: (err) => {
         console.error("Error loading events", err);

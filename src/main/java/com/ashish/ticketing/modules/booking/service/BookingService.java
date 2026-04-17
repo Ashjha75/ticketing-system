@@ -14,6 +14,7 @@ import com.ashish.ticketing.modules.booking.repository.BookingRepository;
 import com.ashish.ticketing.modules.event.entity.Event;
 import com.ashish.ticketing.modules.event.service.EventQueryService;
 import com.ashish.ticketing.modules.inventory.service.InventoryService;
+import com.ashish.ticketing.modules.notification.service.NotificationService;
 import com.ashish.ticketing.modules.user.entity.User;
 import com.ashish.ticketing.modules.user.service.UserService;
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class BookingService {
 	private final BookingLifecycleService bookingLifecycleService;
 	private final BookingQueryService bookingQueryService;
 	private final BookingMapper bookingMapper;
+	private final NotificationService notificationService;
 
 	public BookingService(
 			UserService userService,
@@ -41,7 +43,8 @@ public class BookingService {
 			BookingValidationService bookingValidationService,
 			BookingLifecycleService bookingLifecycleService,
 			BookingQueryService bookingQueryService,
-			BookingMapper bookingMapper
+			BookingMapper bookingMapper,
+			NotificationService notificationService
 	) {
 		this.userService = userService;
 		this.eventQueryService = eventQueryService;
@@ -51,6 +54,7 @@ public class BookingService {
 		this.bookingLifecycleService = bookingLifecycleService;
 		this.bookingQueryService = bookingQueryService;
 		this.bookingMapper = bookingMapper;
+		this.notificationService = notificationService;
 	}
 
 	@Transactional
@@ -67,6 +71,7 @@ public class BookingService {
 		bookingLifecycleService.confirmBooking(booking);
 
 		Booking savedBooking = bookingRepository.save(booking);
+		notificationService.sendBookingConfirmation(user, savedBooking);
 		return bookingMapper.toResponse(savedBooking);
 	}
 

@@ -1,70 +1,77 @@
 package com.ashish.ticketing.modules.notification.entity;
 
+import com.ashish.ticketing.common.entity.BaseEntity;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.time.Instant;
 
 @Entity
 @Table(name = "notification_logs")
-public class NotificationLog {
+@AttributeOverrides({
+    @AttributeOverride(name = "createdAt", column = @Column(name = "created_at", nullable = false, updatable = false)),
+    @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_at", nullable = false))
+})
+public class NotificationLog extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @Column(nullable = false)
-    private String recipient;
+    @Column(name = "booking_id", nullable = false)
+    private Long bookingId;
 
-    @Column(nullable = false)
-    private String subject;
+    @Column(nullable = false, length = 20)
+    private String type;
+
+    @Column(nullable = false, length = 20)
+    private String status;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
     @Column(nullable = false)
-    private String status;
+    private Integer retryCount = 0;
 
-    @Column(nullable = false)
+    @Column(name = "sent_at")
     private Instant sentAt;
 
     public NotificationLog() {
     }
 
-    public NotificationLog(String recipient, String subject, String message, String status, Instant sentAt) {
-        this.recipient = recipient;
-        this.subject = subject;
-        this.message = message;
+    public NotificationLog(Long userId, Long bookingId, String type, String status, String message, Integer retryCount, Instant sentAt) {
+        this.userId = userId;
+        this.bookingId = bookingId;
+        this.type = type;
         this.status = status;
+        this.message = message;
+        this.retryCount = retryCount;
         this.sentAt = sentAt;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getType() {
+        return type;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMessage() {
@@ -81,6 +88,14 @@ public class NotificationLog {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getRetryCount() {
+        return retryCount;
+    }
+
+    public void setRetryCount(Integer retryCount) {
+        this.retryCount = retryCount;
     }
 
     public Instant getSentAt() {

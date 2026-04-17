@@ -1,24 +1,33 @@
 package com.ashish.ticketing.modules.booking.entity;
 
+import com.ashish.ticketing.common.entity.BaseEntity;
 import com.ashish.ticketing.modules.booking.enums.BookingStatus;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.time.Instant;
+import jakarta.persistence.UniqueConstraint;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "bookings")
-public class Booking {
+@Table(
+    name = "bookings",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_booking_number", columnNames = "booking_number"),
+        @UniqueConstraint(name = "uk_booking_user_event", columnNames = {"user_id", "event_id"})
+    }
+)
+@AttributeOverrides({
+    @AttributeOverride(name = "createdAt", column = @Column(name = "created_at", nullable = false, updatable = false)),
+    @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_at", nullable = false))
+})
+public class Booking extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "booking_number", nullable = false, unique = true, length = 40)
+    private String bookingNumber;
 
     @Column(name = "event_id", nullable = false)
     private Long eventId;
@@ -29,34 +38,31 @@ public class Booking {
     @Column(nullable = false)
     private Integer quantity;
 
-    @Column(nullable = false)
-    private Double totalPrice;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus status;
 
-    @Column(nullable = false)
-    private Instant bookingDate;
-
     public Booking() {
     }
 
-    public Booking(Long eventId, Long userId, Integer quantity, Double totalPrice, BookingStatus status, Instant bookingDate) {
+    public Booking(String bookingNumber, Long eventId, Long userId, Integer quantity, BigDecimal amount, BookingStatus status) {
+        this.bookingNumber = bookingNumber;
         this.eventId = eventId;
         this.userId = userId;
         this.quantity = quantity;
-        this.totalPrice = totalPrice;
+        this.amount = amount;
         this.status = status;
-        this.bookingDate = bookingDate;
     }
 
-    public Long getId() {
-        return id;
+    public String getBookingNumber() {
+        return bookingNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public Long getEventId() {
@@ -83,12 +89,12 @@ public class Booking {
         this.quantity = quantity;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public BookingStatus getStatus() {
@@ -99,11 +105,4 @@ public class Booking {
         this.status = status;
     }
 
-    public Instant getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(Instant bookingDate) {
-        this.bookingDate = bookingDate;
-    }
 }

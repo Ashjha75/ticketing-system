@@ -1,8 +1,15 @@
 package com.ashish.ticketing.modules.booking.dto.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class CreateBookingRequest {
 
+    @NotNull(message = "Event id is required")
     private Long eventId;
+
+    @NotNull(message = "Quantity is required")
+    @Min(value = 1, message = "Quantity must be greater than zero")
     private Integer quantity;
 
     public CreateBookingRequest() {

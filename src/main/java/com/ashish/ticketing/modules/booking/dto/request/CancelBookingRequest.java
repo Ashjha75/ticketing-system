@@ -1,16 +1,17 @@
 package com.ashish.ticketing.modules.booking.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CancelBookingRequest {
 
+    @NotNull(message = "Booking id is required")
     private Long bookingId;
-    private String reason;
 
     public CancelBookingRequest() {
     }
 
-    public CancelBookingRequest(Long bookingId, String reason) {
+    public CancelBookingRequest(Long bookingId) {
         this.bookingId = bookingId;
-        this.reason = reason;
     }
 
     public Long getBookingId() {
@@ -21,11 +22,4 @@ public class CancelBookingRequest {
         this.bookingId = bookingId;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
 }

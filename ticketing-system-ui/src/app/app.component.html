@@ -15,3 +15,17 @@
 </header>
 
 <router-outlet></router-outlet>
+
+<div class="toast-container" *ngIf="toast">
+  <div class="toast" [ngClass]="toast.type">
+    <div class="toast-content">
+      <span class="toast-icon">
+        <ng-container *ngIf="toast.type === 'success'">✅</ng-container>
+        <ng-container *ngIf="toast.type === 'error'">🚨</ng-container>
+        <ng-container *ngIf="toast.type === 'info'">ℹ️</ng-container>
+      </span>
+      <span class="toast-message">{{toast.message}}</span>
+    </div>
+    <button class="toast-close" (click)="closeToast()">×</button>
+  </div>
+</div>

@@ -6,20 +6,29 @@
       <p>Create an account to start booking events</p>
     </div>
 
-    <form class="auth-form">
+    <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="user@example.com">
+        <input type="email" id="email" formControlName="email" placeholder="user@example.com">
+        <small class="error-text" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          Valid email is required.
+        </small>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••">
+        <input type="password" id="password" formControlName="password" placeholder="••••••••">
+        <small class="error-text" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          Password must be at least 8 characters.
+        </small>
       </div>
       <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" placeholder="••••••••">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="••••••••">
+        <small class="error-text" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+          Passwords do not match.
+        </small>
       </div>
-      <button class="btn btn-primary auth-btn">Create Account</button>
+      <button class="btn btn-primary auth-btn" type="submit" [disabled]="registerForm.invalid">Create Account</button>
     </form>
 
     <div class="auth-footer">

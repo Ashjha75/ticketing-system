@@ -1,40 +1,37 @@
 package com.ashish.ticketing.modules.booking.dto.response;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 public class BookingDetailsResponse {
 
-    private Long id;
+    private String bookingNumber;
     private Long eventId;
-    private String eventName;
     private Long userId;
-    private String userName;
     private Integer quantity;
-    private Double totalPrice;
+    private BigDecimal amount;
     private String status;
-    private Instant bookingDate;
+    private Instant createdAt;
 
     public BookingDetailsResponse() {
     }
 
-    public BookingDetailsResponse(Long id, Long eventId, String eventName, Long userId, String userName, Integer quantity, Double totalPrice, String status, Instant bookingDate) {
-        this.id = id;
+    public BookingDetailsResponse(String bookingNumber, Long eventId, Long userId, Integer quantity, BigDecimal amount, String status, Instant createdAt) {
+        this.bookingNumber = bookingNumber;
         this.eventId = eventId;
-        this.eventName = eventName;
         this.userId = userId;
-        this.userName = userName;
         this.quantity = quantity;
-        this.totalPrice = totalPrice;
+        this.amount = amount;
         this.status = status;
-        this.bookingDate = bookingDate;
+        this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
+    public String getBookingNumber() {
+        return bookingNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public Long getEventId() {
@@ -45,28 +42,12 @@ public class BookingDetailsResponse {
         this.eventId = eventId;
     }
 
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
     public Long getUserId() {
         return userId;
     }
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public Integer getQuantity() {
@@ -77,12 +58,12 @@ public class BookingDetailsResponse {
         this.quantity = quantity;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public String getStatus() {
@@ -93,11 +74,11 @@ public class BookingDetailsResponse {
         this.status = status;
     }
 
-    public Instant getBookingDate() {
-        return bookingDate;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setBookingDate(Instant bookingDate) {
-        this.bookingDate = bookingDate;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -1,68 +1,28 @@
 package com.ashish.ticketing.modules.booking.dto.response;
 
-import java.time.Instant;
+import java.math.BigDecimal;
 
 public class BookingResponse {
 
-    private Long id;
-    private Long eventId;
-    private Long userId;
-    private Integer quantity;
-    private Double totalPrice;
+    private String bookingNumber;
     private String status;
-    private Instant bookingDate;
+    private BigDecimal amount;
 
     public BookingResponse() {
     }
 
-    public BookingResponse(Long id, Long eventId, Long userId, Integer quantity, Double totalPrice, String status, Instant bookingDate) {
-        this.id = id;
-        this.eventId = eventId;
-        this.userId = userId;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
+    public BookingResponse(String bookingNumber, String status, BigDecimal amount) {
+        this.bookingNumber = bookingNumber;
         this.status = status;
-        this.bookingDate = bookingDate;
+        this.amount = amount;
     }
 
-    public Long getId() {
-        return id;
+    public String getBookingNumber() {
+        return bookingNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
     }
 
     public String getStatus() {
@@ -73,11 +33,11 @@ public class BookingResponse {
         this.status = status;
     }
 
-    public Instant getBookingDate() {
-        return bookingDate;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setBookingDate(Instant bookingDate) {
-        this.bookingDate = bookingDate;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

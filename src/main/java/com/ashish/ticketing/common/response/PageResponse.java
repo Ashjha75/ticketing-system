@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageResponse<T> {
-    private List<T> items;
-    private int page;
-    private int size;
+    private List<T> content;
+    private int pageNumber;
+    private int pageSize;
     private long totalElements;
     private int totalPages;
+    private boolean last;
 }
 

@@ -1,24 +1,32 @@
 package com.ashish.ticketing.common.util;
 
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public final class DateTimeUtil {
-    private static final DateTimeFormatter ISO_INSTANT = DateTimeFormatter.ISO_INSTANT;
+    private static final DateTimeFormatter ISO_INSTANT = DateTimeFormatter.ISO_INSTANT.withZone(ZoneOffset.UTC);
 
     private DateTimeUtil() {
     }
 
-    public static Instant nowUtc() {
+    public static Instant getCurrentTime() {
         return Instant.now();
     }
 
-    public static String formatIso(Instant instant) {
-        return instant == null ? null : ISO_INSTANT.format(instant);
+    public static boolean isBetween(Instant start, Instant end) {
+        return isBetween(getCurrentTime(), start, end);
     }
 
-    public static Instant parseIso(String value) {
-        return value == null || value.isBlank() ? null : Instant.parse(value);
+    public static boolean isBetween(Instant target, Instant start, Instant end) {
+        if (target == null || start == null || end == null) {
+            return false;
+        }
+        return !target.isBefore(start) && !target.isAfter(end);
+    }
+
+    public static String formatDate(Instant instant) {
+        return instant == null ? null : ISO_INSTANT.format(instant);
     }
 }
 

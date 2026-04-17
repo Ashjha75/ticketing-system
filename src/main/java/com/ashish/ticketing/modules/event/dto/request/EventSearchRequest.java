@@ -1,30 +1,40 @@
 package com.ashish.ticketing.modules.event.dto.request;
 
 import com.ashish.ticketing.modules.event.enums.EventCategory;
-import com.ashish.ticketing.modules.event.enums.EventStatus;
 import java.time.Instant;
 
 public class EventSearchRequest {
 
+    private String city;
     private String keyword;
     private EventCategory category;
-    private EventStatus status;
-    private Instant startTimeFrom;
-    private Instant startTimeTo;
+    private Instant startDate;
+    private Instant endDate;
     private Integer page;
     private Integer size;
+    private String sort;
 
     public EventSearchRequest() {
     }
 
-    public EventSearchRequest(String keyword, EventCategory category, EventStatus status, Instant startTimeFrom, Instant startTimeTo, Integer page, Integer size) {
+    public EventSearchRequest(String city, String keyword, EventCategory category, Instant startDate, Instant endDate,
+                              Integer page, Integer size, String sort) {
+        this.city = city;
         this.keyword = keyword;
         this.category = category;
-        this.status = status;
-        this.startTimeFrom = startTimeFrom;
-        this.startTimeTo = startTimeTo;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.page = page;
         this.size = size;
+        this.sort = sort;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getKeyword() {
@@ -43,28 +53,20 @@ public class EventSearchRequest {
         this.category = category;
     }
 
-    public EventStatus getStatus() {
-        return status;
+    public Instant getStartDate() {
+        return startDate;
     }
 
-    public void setStatus(EventStatus status) {
-        this.status = status;
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
     }
 
-    public Instant getStartTimeFrom() {
-        return startTimeFrom;
+    public Instant getEndDate() {
+        return endDate;
     }
 
-    public void setStartTimeFrom(Instant startTimeFrom) {
-        this.startTimeFrom = startTimeFrom;
-    }
-
-    public Instant getStartTimeTo() {
-        return startTimeTo;
-    }
-
-    public void setStartTimeTo(Instant startTimeTo) {
-        this.startTimeTo = startTimeTo;
+    public void setEndDate(Instant endDate) {
+        this.endDate = endDate;
     }
 
     public Integer getPage() {
@@ -81,6 +83,14 @@ public class EventSearchRequest {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }
 

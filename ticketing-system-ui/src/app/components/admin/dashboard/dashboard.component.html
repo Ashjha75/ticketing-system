@@ -1,1 +1,72 @@
-<p>dashboard works!</p>
+<main class="dashboard-container">
+  <div class="page-header">
+    <h1>Admin Dashboard</h1>
+    <p>Overview of system metrics and performance.</p>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="dashboard-content" *ngIf="!loading && dashboardData">
+    <div class="stats-grid">
+      <div class="stat-card revenue-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-details">
+          <h3>Total Revenue</h3>
+          <span class="stat-value">{{dashboardData.totalRevenue | currency:'INR'}}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎟️</div>
+        <div class="stat-details">
+          <h3>Total Bookings</h3>
+          <span class="stat-value">{{dashboardData.totalBookings}}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-details">
+          <h3>Total Users</h3>
+          <span class="stat-value">{{dashboardData.totalUsers}}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-details">
+          <h3>Active Events</h3>
+          <span class="stat-value">{{dashboardData.activeEvents}} / {{dashboardData.totalEvents}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-secondary">
+      <div class="secondary-card">
+        <h3>Today's Performance</h3>
+        <div class="perf-stats">
+          <div class="perf-item">
+            <span class="perf-label">Bookings Today</span>
+            <span class="perf-value">{{dashboardData.todayBookings}}</span>
+          </div>
+          <div class="perf-item">
+            <span class="perf-label">Revenue Today</span>
+            <span class="perf-value success">{{dashboardData.todayRevenue | currency:'INR'}}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="secondary-card">
+        <h3>Event Status</h3>
+        <div class="perf-stats">
+          <div class="perf-item">
+            <span class="perf-label">Sold Out Events</span>
+            <span class="perf-value danger">{{dashboardData.soldOutEvents}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

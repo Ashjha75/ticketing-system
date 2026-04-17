@@ -1,10 +1,12 @@
 package com.ashish.ticketing.modules.notification.service;
 
 import com.ashish.ticketing.modules.booking.entity.Booking;
+import com.ashish.ticketing.modules.booking.repository.BookingRepository;
 import com.ashish.ticketing.modules.notification.dto.response.NotificationResponse;
 import com.ashish.ticketing.modules.notification.entity.NotificationLog;
 import com.ashish.ticketing.modules.notification.repository.NotificationLogRepository;
 import com.ashish.ticketing.modules.user.entity.User;
+import com.ashish.ticketing.modules.user.repository.UserRepository;
 import java.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +23,21 @@ public class NotificationService {
 	private final EmailService emailService;
 	private final TemplateService templateService;
 	private final NotificationLogRepository notificationLogRepository;
+	private final UserRepository userRepository;
+	private final BookingRepository bookingRepository;
 
 	public NotificationService(
 			EmailService emailService,
 			TemplateService templateService,
-			NotificationLogRepository notificationLogRepository
+			NotificationLogRepository notificationLogRepository,
+			UserRepository userRepository,
+			BookingRepository bookingRepository
 	) {
 		this.emailService = emailService;
 		this.templateService = templateService;
 		this.notificationLogRepository = notificationLogRepository;
+		this.userRepository = userRepository;
+		this.bookingRepository = bookingRepository;
 	}
 
 	public NotificationResponse sendBookingConfirmation(User user, Booking booking) {
@@ -56,6 +64,28 @@ public class NotificationService {
 			logger.error("Failed to send failure notification for userId={}", user.getId(), ex);
 			saveLog(user.getId(), 0L, STATUS_FAILED, ex.getMessage(), null);
 			return new NotificationResponse(STATUS_FAILED, "Failure notification could not be sent");
+		}
+	}
+
+	public boolean retryFailedNotification(NotificationLog log) {
+		try {
+			if (log == null || log.getUserId() == null || log.getBookingId() == null || log.getBookingId() <= 0) {
+				return false;
+			}
+
+			User user = userRepository.findById(log.getUserId()).orElse(null);
+			Booking booking = bookingRepository.findById(log.getBookingId()).orElse(null);
+			if (user == null || booking == null) {
+				return false;
+			}
+
+			String subject = "Booking Confirmation - " + booking.getBookingNumber();
+			String body = templateService.buildBookingConfirmation(user, booking);
+			emailService.sendEmail(user.getEmail(), subject, body);
+			return true;
+		} catch (Exception ex) {
+			logger.error("Retry failed for notificationLogId={}", log != null ? log.getId() : null, ex);
+			return false;
 		}
 	}
 

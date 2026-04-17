@@ -11,6 +11,8 @@ import { EventListComponent } from './components/events/event-list/event-list.co
 import { EventDetailComponent } from './components/events/event-detail/event-detail.component';
 import { BookingListComponent } from './components/bookings/booking-list/booking-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { EventManagementComponent } from './components/admin/event-management/event-management.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     EventListComponent,
     EventDetailComponent,
     BookingListComponent,
-    ProfileComponent
+    ProfileComponent,
+    DashboardComponent,
+    EventManagementComponent
   ],
   imports: [
     BrowserModule,

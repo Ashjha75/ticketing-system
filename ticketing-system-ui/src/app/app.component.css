@@ -18,6 +18,27 @@
   font-size: 20px;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: color 0.2s;
+}
+
+.nav-btn:hover {
+  color: #111;
+}
+
 .portfolio-btn {
   display: flex;
   align-items: center;

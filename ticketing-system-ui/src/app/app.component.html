@@ -1,51 +1,15 @@
 <header class="navbar">
   <div class="logo">
-    <span class="emoji">🤠</span>
-    <span class="brand-name">Projects Portfolio</span>
+    <span class="emoji">🎟️</span>
+    <span class="brand-name">TicketHub</span>
   </div>
-  <button class="portfolio-btn">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-    Portfolio
-  </button>
+  <div class="nav-links">
+    <button class="nav-btn" routerLink="/events">Events</button>
+    <button class="nav-btn" routerLink="/bookings">My Bookings</button>
+    <button class="portfolio-btn" routerLink="/login">
+      Sign In
+    </button>
+  </div>
 </header>
 
-<main class="hero">
-  <div class="pill">
-    <span class="red-dot"></span>
-    New: Appwrite v1.6 Integration
-  </div>
-
-  <h1 class="hero-title">My Projects <span>Portfolio</span></h1>
-  
-  <p class="hero-subtitle">
-    Explore my collection of web applications, tools, and creative projects<br>
-    built with modern technologies.
-  </p>
-
-  <div class="hero-buttons">
-    <button class="btn btn-primary">
-      View Projects
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-    </button>
-    <button class="btn btn-secondary">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-      Contact Me
-    </button>
-  </div>
-
-  <div class="powered-by">
-    <span class="check-icon">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-    </span>
-    Powered by Appwrite
-  </div>
-
-  <div class="error-card">
-    <div class="error-icon">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-    </div>
-    <h2>Failed to Load Projects</h2>
-    <p>Project is paused due to inactivity. Please restore it from the console to resume operations.</p>
-    <button class="btn btn-primary btn-try-again">Try Again</button>
-  </div>
-</main>
+<router-outlet></router-outlet>

@@ -1,29 +1,20 @@
 package com.ashish.ticketing.modules.user.entity;
 
+import com.ashish.ticketing.common.entity.BaseEntity;
 import com.ashish.ticketing.modules.user.enums.UserRole;
 import com.ashish.ticketing.modules.user.enums.UserStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
+    @Column(length = 120)
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -33,46 +24,28 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus status;
+    private UserStatus status = UserStatus.ACTIVE;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, UserRole role, UserStatus status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String email, String password, UserRole role, UserStatus status) {
         this.email = email;
         this.password = password;
         this.role = role;
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

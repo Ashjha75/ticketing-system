@@ -1,20 +1,30 @@
 package com.ashish.ticketing.modules.admin.dto.response;
 
+import java.math.BigDecimal;
+
 public class BookingStatsResponse {
 
     private long totalBookings;
-    private long successfulBookings;
-    private long failedBookings;
+    private long confirmedBookings;
     private long cancelledBookings;
+    private long failedBookings;
+    private BigDecimal totalRevenue;
 
     public BookingStatsResponse() {
     }
 
-    public BookingStatsResponse(long totalBookings, long successfulBookings, long failedBookings, long cancelledBookings) {
+    public BookingStatsResponse(
+            long totalBookings,
+            long confirmedBookings,
+            long cancelledBookings,
+            long failedBookings,
+            BigDecimal totalRevenue
+    ) {
         this.totalBookings = totalBookings;
-        this.successfulBookings = successfulBookings;
-        this.failedBookings = failedBookings;
+        this.confirmedBookings = confirmedBookings;
         this.cancelledBookings = cancelledBookings;
+        this.failedBookings = failedBookings;
+        this.totalRevenue = totalRevenue;
     }
 
     public long getTotalBookings() {
@@ -25,12 +35,20 @@ public class BookingStatsResponse {
         this.totalBookings = totalBookings;
     }
 
-    public long getSuccessfulBookings() {
-        return successfulBookings;
+    public long getConfirmedBookings() {
+        return confirmedBookings;
     }
 
-    public void setSuccessfulBookings(long successfulBookings) {
-        this.successfulBookings = successfulBookings;
+    public void setConfirmedBookings(long confirmedBookings) {
+        this.confirmedBookings = confirmedBookings;
+    }
+
+    public long getCancelledBookings() {
+        return cancelledBookings;
+    }
+
+    public void setCancelledBookings(long cancelledBookings) {
+        this.cancelledBookings = cancelledBookings;
     }
 
     public long getFailedBookings() {
@@ -41,11 +59,11 @@ public class BookingStatsResponse {
         this.failedBookings = failedBookings;
     }
 
-    public long getCancelledBookings() {
-        return cancelledBookings;
+    public BigDecimal getTotalRevenue() {
+        return totalRevenue;
     }
 
-    public void setCancelledBookings(long cancelledBookings) {
-        this.cancelledBookings = cancelledBookings;
+    public void setTotalRevenue(BigDecimal totalRevenue) {
+        this.totalRevenue = totalRevenue;
     }
 }

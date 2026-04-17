@@ -1,25 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastService, ToastMessage } from './services/toast.service';
+import { Component, OnInit } from "@angular/core";
+import { ToastService, ToastMessage } from "./services/toast.service";
+import { AuthService } from "./services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  title = 'ticketing-system-ui';
+  title = "ticketing-system-ui";
   toast: ToastMessage | null = null;
+  isLoggedIn = false;
+  isAdmin = false;
 
-  constructor(private toastService: ToastService) {}
+  constructor(
+    private toastService: ToastService,
+    public authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
-    this.toastService.toastState$.subscribe(toast => {
+    this.authService.currentUser$.subscribe((user) => {
+      this.isLoggedIn = !!user;
+      this.isAdmin = user?.role === "ADMIN";
+    });
+
+    this.toastService.toastState$.subscribe((toast) => {
       this.toast = toast;
-      setTimeout(() => this.toast = null, 3000); // auto clear
+      setTimeout(() => (this.toast = null), 3000); // auto clear
     });
   }
 
   closeToast() {
     this.toast = null;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(["/login"]);
   }
 }

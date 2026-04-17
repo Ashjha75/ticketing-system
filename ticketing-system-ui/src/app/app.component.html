@@ -5,11 +5,17 @@
   </div>
   <div class="nav-links">
     <button class="nav-btn" routerLink="/events">Events</button>
-    <button class="nav-btn" routerLink="/bookings">My Bookings</button>
-    <button class="nav-btn" routerLink="/profile">Profile</button>
-    <button class="nav-btn" routerLink="/admin/dashboard">Admin</button>
-    <button class="portfolio-btn" routerLink="/login">
+    <button class="nav-btn" routerLink="/bookings" *ngIf="isLoggedIn">
+      My Bookings
+    </button>
+    <button class="nav-btn" routerLink="/admin/dashboard" *ngIf="isAdmin">
+      Admin
+    </button>
+    <button class="portfolio-btn" routerLink="/login" *ngIf="!isLoggedIn">
       Sign In
+    </button>
+    <button class="portfolio-btn" (click)="logout()" *ngIf="isLoggedIn">
+      Logout
     </button>
   </div>
 </header>
@@ -24,7 +30,7 @@
         <ng-container *ngIf="toast.type === 'error'">🚨</ng-container>
         <ng-container *ngIf="toast.type === 'info'">ℹ️</ng-container>
       </span>
-      <span class="toast-message">{{toast.message}}</span>
+      <span class="toast-message">{{ toast.message }}</span>
     </div>
     <button class="toast-close" (click)="closeToast()">×</button>
   </div>

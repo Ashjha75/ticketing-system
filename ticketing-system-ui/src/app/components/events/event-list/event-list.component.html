@@ -14,8 +14,8 @@
   <div class="hero-buttons">
     <div class="search-box">
       <svg
-        width="20"
-        height="20"
+        width="22"
+        height="22"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -67,13 +67,13 @@
   </div>
 
   <div
-    class="main-banner"
+    class="main-banner glass-panel"
     style="
       max-width: 1200px;
-      margin: 0 auto 48px;
-      border-radius: 16px;
+      margin: 0 auto 64px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      padding: 0;
     "
   >
     <img
@@ -84,26 +84,23 @@
   </div>
   <div
     *ngIf="isLoading"
-    class="loading-card"
+    class="loading-card glass-panel"
     style="
       text-align: center;
-      padding: 48px;
-      background: white;
-      border-radius: 16px;
-      margin-bottom: 32px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 64px;
+      margin-bottom: 40px;
     "
   >
     <div
       class="loader-spinner"
       style="
         display: inline-block;
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #ff4757;
+        width: 48px;
+        height: 48px;
+        border: 4px solid var(--border-color);
+        border-top: 4px solid var(--accent-color);
         border-radius: 50%;
-        animation: spin 1s linear infinite;
+        animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       "
     ></div>
     <style>
@@ -116,13 +113,13 @@
         }
       }
     </style>
-    <h2 style="margin-top: 16px; color: #2d3436">Searching events...</h2>
+    <h2 style="margin-top: 24px; color: var(--text-primary);">Searching events...</h2>
   </div>
-  <div *ngIf="events.length === 0 && !isLoading" class="error-card">
+  <div *ngIf="events.length === 0 && !isLoading" class="error-card glass-panel">
     <div class="error-icon">
       <svg
-        width="32"
-        height="32"
+        width="40"
+        height="40"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -148,22 +145,17 @@
   </div>
   <div class="events-grid" *ngIf="!isLoading">
     <div *ngFor="let event of events" class="event-card">
-      <div
-        class="event-image"
-        [style.background-image]="
-          event.image ? 'url(' + event.image + ')' : null
-        "
-        [style.background-size]="'cover'"
-        [style.background-position]="'center'"
-      >
+      <div class="event-image">
+        <img *ngIf="event.image" [src]="event.image" [alt]="event.title" />
+        <div *ngIf="!event.image" style="width:100%;height:100%;background:linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 50%, #f3f3f3 50%, #f3f3f3 75%, transparent 75%, transparent);background-size:40px 40px;"></div>
         <span class="category-badge">{{ event.category }}</span>
       </div>
       <div class="event-content">
         <h3>{{ event.title }}</h3>
         <p class="event-meta">
           <svg
-            width="14"
-            height="14"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -178,8 +170,8 @@
         </p>
         <p class="event-location">
           <svg
-            width="14"
-            height="14"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

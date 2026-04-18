@@ -20,14 +20,9 @@
 
   <div class="event-content-grid">
     <div class="event-main">
-      <div
-        class="event-hero-image"
-        [style.background-image]="
-          event.image ? 'url(' + event.image + ')' : null
-        "
-        [style.background-size]="'cover'"
-        [style.background-position]="'center'"
-      >
+      <div class="event-hero-image">
+        <img *ngIf="event.image" [src]="event.image" [alt]="event.title" />
+        <div *ngIf="!event.image" style="width:100%;height:100%;background:linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 50%, #f3f3f3 50%, #f3f3f3 75%, transparent 75%, transparent);background-size:40px 40px;"></div>
         <span class="category-badge">{{ event.category }}</span>
       </div>
 
@@ -38,8 +33,8 @@
           <div class="meta-item">
             <div class="meta-icon">
               <svg
-                width="20"
-                height="20"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -63,8 +58,8 @@
           <div class="meta-item">
             <div class="meta-icon">
               <svg
-                width="20"
-                height="20"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -91,7 +86,7 @@
     </div>
 
     <div class="event-sidebar">
-      <div class="booking-card">
+      <div class="booking-card glass-panel">
         <h3>Reserve Your Spot</h3>
 
         <div class="price-row">
@@ -116,7 +111,7 @@
         </div>
 
         <button
-          class="btn btn-primary checkout-btn"
+          class="btn checkout-btn"
           (click)="bookTickets()"
           [disabled]="bookingSuccess"
         >

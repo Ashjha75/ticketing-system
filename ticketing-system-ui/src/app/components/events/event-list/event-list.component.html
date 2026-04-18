@@ -30,6 +30,7 @@
         type="text"
         placeholder="Search events, cities, artists..."
         [(ngModel)]="filters.keyword"
+        (ngModelChange)="onSearchChange()"
         (keyup.enter)="loadEvents()"
       />
     </div>
@@ -81,7 +82,43 @@
       style="width: 100%; display: block"
     />
   </div>
-  <div *ngIf="events.length === 0" class="error-card">
+  <div
+    *ngIf="isLoading"
+    class="loading-card"
+    style="
+      text-align: center;
+      padding: 48px;
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    "
+  >
+    <div
+      class="loader-spinner"
+      style="
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #ff4757;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      "
+    ></div>
+    <style>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <h2 style="margin-top: 16px; color: #2d3436">Searching events...</h2>
+  </div>
+  <div *ngIf="events.length === 0 && !isLoading" class="error-card">
     <div class="error-icon">
       <svg
         width="32"
@@ -109,7 +146,7 @@
       Refresh
     </button>
   </div>
-  <div class="events-grid">
+  <div class="events-grid" *ngIf="!isLoading">
     <div *ngFor="let event of events" class="event-card">
       <div
         class="event-image"

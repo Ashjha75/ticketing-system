@@ -8,6 +8,7 @@ import { EventService } from "src/app/services/event.service";
 })
 export class EventListComponent implements OnInit {
   events: any[] = [];
+  isLoading: boolean = false;
   filters = {
     keyword: "",
     category: "",
@@ -32,9 +33,17 @@ export class EventListComponent implements OnInit {
     this.loadEvents();
   }
 
+  onSearchChange() {
+    if (this.filters.keyword.length > 2 || this.filters.keyword.length === 0) {
+      this.loadEvents();
+    }
+  }
+
   loadEvents() {
+    this.isLoading = true;
     this.eventService.getEvents(this.filters).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         let fetchedEvents = res.data?.content || [];
         this.events = fetchedEvents.map((event: any, index: number) => {
           if (!event.image) {
@@ -45,6 +54,7 @@ export class EventListComponent implements OnInit {
         });
       },
       error: (err) => {
+        this.isLoading = false;
         console.error("Error loading events", err);
         // Fallback to mock data if API fails (for demo purposes)
         let mockEvents = [

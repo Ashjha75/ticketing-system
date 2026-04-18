@@ -78,46 +78,42 @@
 .event-meta-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 40px;
-  padding: 32px;
-  background-color: #f8f9fa;
-  border: 1px solid #eaeaea;
-  border-radius: 20px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .meta-item {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .meta-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  background-color: white;
-  border-radius: 16px;
+  width: 24px;
+  height: 24px;
   color: #111;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 2px;
 }
 
 .meta-text {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .meta-text strong {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   color: #111;
 }
 
 .meta-text span {
-  font-size: 16px;
+  font-size: 15px;
   color: #555;
 }
 
